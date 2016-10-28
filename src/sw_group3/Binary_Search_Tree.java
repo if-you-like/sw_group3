@@ -2,9 +2,11 @@ package sw_group3;
 
 public class Binary_Search_Tree extends NodeStructure {
    Node root;
-
+   String TreeData[];
+   
    Binary_Search_Tree() {
       root = new Node();
+      TreeData=new String[15];
    }
 
    void insert(String d) {
@@ -36,6 +38,19 @@ public class Binary_Search_Tree extends NodeStructure {
       }
    }
 
+   void TreeInput(Node t,int n,int tmp) {
+	   if (t != null) {
+		 TreeInput(t.left,n-tmp,tmp/2);
+		 TreeData[n]=t.data;
+		 TreeInput(t.right,n+tmp,tmp/2);
+	   }
+   }
+   
+   void ShowTreeData(){
+	   for(int i=0;i<15;i++){
+		   System.out.print(TreeData[i]+" ");
+	   }
+   }
    void inorder(Node t) {
       if (t != null) {
          inorder(t.left);
