@@ -1,4 +1,3 @@
-package sw_group3;
 class NodeStructure extends DataStructure {
 	Node head = null;
 	Node tail = null;
