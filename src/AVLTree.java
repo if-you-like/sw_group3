@@ -1,7 +1,5 @@
-package sw_group3;
-
-public class AVL_Tree extends Binary_Search_Tree {
-	AVL_Tree() {
+public class AVLTree extends Binary_Search_Tree {
+	AVLTree() {
 		super();
 	}
 

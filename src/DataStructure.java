@@ -1,4 +1,4 @@
-abstract class DataStructure {
+abstract class DataStructure{
 	void insert(String d){}
 	String delete(){
 		return "";

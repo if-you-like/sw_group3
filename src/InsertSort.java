@@ -1,5 +1,3 @@
-package sw_group3;
-
 import javax.swing.JButton;
 import javax.swing.JPanel;
 

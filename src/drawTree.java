@@ -3,7 +3,7 @@ import java.awt.Graphics;
 import java.util.LinkedHashMap;
 import javax.swing.JPanel;
 
-class DrawTree extends JPanel {
+class drawTree extends JPanel {
 
 	private int w = 100;
 	private int h = 100;
@@ -13,7 +13,7 @@ class DrawTree extends JPanel {
 	String[] TreeDate;
 	private int holic[] = new int[15];
 
-	public DrawTree() {
+	public drawTree() {
 		 holic[7] = 0;
 		 holic[3] = 1;
 		 holic[11] = 2;

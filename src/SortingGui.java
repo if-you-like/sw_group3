@@ -1,5 +1,3 @@
-package sw_group3;
-
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -44,28 +42,9 @@ public class SortingGui extends JFrame {
 	private String sumText = "";
 	private JTextArea textArea;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SortingGui frame = new SortingGui(4);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public SortingGui(int sortingWhat) {
 
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1140, 488);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
