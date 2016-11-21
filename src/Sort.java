@@ -38,10 +38,11 @@ public class Sort {
 	void input(int data) {
 		if (list.size() < Maxsize) {
 			list.add(data);
-			
+
 		} else {
 			JOptionPane.showMessageDialog(new JPanel(), "ARRAY IS FULL", "Error", JOptionPane.ERROR_MESSAGE);
-		}replaceArr();
+		}
+		replaceArr();
 	}
 
 	void delete(int k) {
@@ -113,8 +114,8 @@ public class Sort {
 		}
 	}
 
-	void DrawPanel(int[] arr, int x, int y, int p, String pstr, int q, String qstr, boolean bool) {
-		panel = new TwoColorSortingPaint(arr, x, y, p, pstr, q, qstr, bool);
+	void DrawPanel(int[] arr, int x, int y, int p, String pstr, int q, String qstr, boolean bool, int c) {
+		panel = new TwoColorSortingPaint(arr, x, y, p, pstr, q, qstr, bool, c);
 		panel.setBackground(Color.WHITE);
 		panel.setBounds(12, 134, 824, 211);
 		contentPane.add(panel);

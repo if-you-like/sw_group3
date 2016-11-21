@@ -21,7 +21,7 @@ import javax.swing.JScrollBar;
 import javax.swing.JTextArea;
 import javax.swing.UIManager;
 
-public class stackUI extends SelectUI {
+public class stackUI extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;

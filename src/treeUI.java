@@ -23,7 +23,7 @@ import javax.swing.JToggleButton;
 import javax.swing.border.LineBorder;
 import javax.swing.UIManager;
 
-public class treeUI extends SelectUI {
+public class treeUI extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;

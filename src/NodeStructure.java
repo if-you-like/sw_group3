@@ -1,7 +1,7 @@
 class NodeStructure extends DataStructure {
-	Node head = null;
+	Node head =null;
 	Node tail = null;
-	String delete(String d){
+	String delete(String d ){
 		return "";
 	}
 	String print() {

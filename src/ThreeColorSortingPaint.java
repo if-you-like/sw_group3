@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 
 public class ThreeColorSortingPaint extends ArrayPaint {
@@ -26,22 +27,27 @@ public class ThreeColorSortingPaint extends ArrayPaint {
 			if (ci == cmin && i == ci) {
 				g.setColor(new Color(255,128,64));
 				g.fillRect(x + 70 * i, y, 70, 31);
+				g.setColor(Color.BLACK);
 				g.drawString(istr+" = "+minstr, x + 70 * i + 35, stringhigh);
 			} else if (cj == cmin && cj == i) {
 				g.setColor(new Color(255,128,64));
 				g.fillRect(x + 70 * i, y, 70, 31);
+				g.setColor(Color.BLACK);
 				g.drawString(jstr+" = "+minstr, x + 70 * i + 35, stringhigh);
 			} else if (i == ci) {
 				g.setColor(new Color(255,100,100));
 				g.fillRect(x + 70 * i, y, 70, 31);
+				g.setColor(Color.BLACK);
 				g.drawString(istr, x + 70 * i + 35, stringhigh);
 			} else if (i == cmin) {
 				g.setColor(new Color(255,128,64));
 				g.fillRect(x + 70 * i, y, 70, 31);
+				g.setColor(Color.BLACK);
 				g.drawString(minstr, x + 70 * i + 35, stringhigh);
 			} else if (i == cj) {
 				g.setColor(new Color(100,100,255));
 				g.fillRect(x + 70 * i, y, 70, 31);
+				g.setColor(Color.BLACK);
 				g.drawString(jstr, x + 70 * i + 35, stringhigh);
 			} else {
 				g.drawRect(x + 70 * i, y, 70, 30);
@@ -52,7 +58,8 @@ public class ThreeColorSortingPaint extends ArrayPaint {
 
 		if (bool == true) {
 			g.setColor(Color.black);
-			g.drawString("Swap", x + 70 * ci + 60, stringhigh);
+			g.setFont(new Font("±¼¸²",Font.BOLD,30));
+			g.drawString("Swap", 350, 30);
 		}
 
 		this.setVisible(true);

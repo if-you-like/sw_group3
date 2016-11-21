@@ -73,7 +73,7 @@ public class QuickSort extends Sort {
 		}
 
 		// swap arr[i+1] and arr[high] (or pivot)
-		DrawPanel(arr, 50, 100, i + 1, "i+1", high, "pivot", true);
+		DrawPanel(arr, 50, 100, i + 1, "i+1", high, "pivot", true, 2);
 		try {
 			thread.sleep((long) threadSleepTime);
 		} catch (InterruptedException e) {
@@ -81,7 +81,7 @@ public class QuickSort extends Sort {
 			e.printStackTrace();
 		}
 		exch(arr, i + 1, high);
-		DrawPanel(arr, 50, 100, i + 1, "i+1", high, "pivot", false);
+		DrawPanel(arr, 50, 100, i + 1, "i+1", high, "pivot", false, 2);
 		try {
 			thread.sleep((long) threadSleepTime);
 		} catch (InterruptedException e) {

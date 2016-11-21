@@ -35,10 +35,10 @@ public class SelectedSort extends Sort {
 							sDrawPanel(Arr, 50, 100, i, min, j, false);
 							this.sleep((long) threadSleepTime);
 						}
-						DrawPanel(Arr, 50, 100, i, "i", min, "min", true);
+						DrawPanel(Arr, 50, 100, i, "i", min, "min", true,3);
 						this.sleep((long) threadSleepTime);
 						exch(Arr, i, min);
-						DrawPanel(Arr, 50, 100, i, "i", min, "min", false);
+						DrawPanel(Arr, 50, 100, i, "i", min, "min", false,3);
 						this.sleep((long) threadSleepTime);
 					}
 					this.sleep(100);

@@ -77,23 +77,26 @@ public class SortingGui extends JFrame {
 		btnSortingStart = new JButton("\uC815 \uB82C \uC2DC \uC791");
 		btnSortingStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) { // 정렬 시작
-
+				String speed="";
 				btnSortingStart.setEnabled(false);
 				btnInput.setEnabled(false);
 				btnDelete.setEnabled(false);
 				btnRandom.setEnabled(false);
 				if (rbtn_std.isSelected() == true) {
-
 					threadSleepTime = 500;
+					speed="Standard";
 
 				} else if (rbtn_slow.isSelected() == true) {
 
 					threadSleepTime = 1000;
+					speed="Slow";
 
 				} else {
 					threadSleepTime = 0;
-
+					speed="Fast";
 				}
+				sb.append(speed+" Run\n");
+				textArea.setText(sb.toString());
 				sort.Run(threadSleepTime);
 				// 예외처리 필요
 
@@ -118,20 +121,20 @@ public class SortingGui extends JFrame {
 				btnSortingStart.setEnabled(true);
 				try { // 입력값의 정상적인 정수변형 여부 파악
 					inputValue = Integer.parseInt(textField.getText());
-					
+
 					sort.input(inputValue);
 					sort.DrawPanel(sort.Arr, 50, 100, true);
-					sb.append("INPUT\t\t"+Integer.toString(inputValue)+"\n");
+					sb.append("INPUT\t\t" + Integer.toString(inputValue) + "\n");
 					textArea.setText(sb.toString());
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(new JPanel(), "INPUT ERROR", "Error", JOptionPane.ERROR_MESSAGE);
-					sb.append("ERROR "+e.getMessage()+"\n");
+					sb.append("ERROR " + e.getMessage() + "\n");
 					textArea.setText(sb.toString());
 					return;
 				} finally {
 					textField.setText("");
 				}
-			
+
 			}
 		});
 		btnInput.setFont(new Font("굴림", Font.BOLD, 15));
@@ -146,20 +149,24 @@ public class SortingGui extends JFrame {
 
 				try {
 					inputValue = Integer.parseInt(textField.getText());
-					
-					sort.Random(inputValue);
-					sort.DrawPanel(sort.Arr, 50, 100, true);
-					sb.append("Randem Size\t"+Integer.toString(inputValue)+"\n");
-					textArea.setText(sb.toString());
+					if (inputValue <= 0 || inputValue > 10) {
+						sb.append("Randem Size OVER\t" + Integer.toString(inputValue) + "\n");
+						textArea.setText(sb.toString());
+					} else {
+						sort.Random(inputValue);
+						sort.DrawPanel(sort.Arr, 50, 100, true);
+						sb.append("Randem Size\t" + Integer.toString(inputValue) + "\n");
+						textArea.setText(sb.toString());
+					}
 				} catch (Exception ee) {
 					JOptionPane.showMessageDialog(new JPanel(), "INPUT ERROR", "Error", JOptionPane.ERROR_MESSAGE);
-					sb.append("ERROR "+ee.getMessage()+"\n");
+					sb.append("ERROR " + ee.getMessage() + "\n");
 					textArea.setText(sb.toString());
 					return;
 				} finally {
 					textField.setText("");
 				}
-				
+
 			}
 		});
 		btnRandom.setFont(new Font("굴림", Font.BOLD, 15));
@@ -172,24 +179,27 @@ public class SortingGui extends JFrame {
 
 				try {
 					inputValue = Integer.parseInt(textField.getText());
-					
-					sort.delete(inputValue);
-					sort.DrawPanel(sort.Arr, 50, 100, true);
-					sb.append("DELETE INDEX\t"+Integer.toString(inputValue)+"\n");
-					textArea.setText(sb.toString());
+					if (inputValue < 0 || inputValue >= 10) {
+						sb.append("DELETE ERROR\t" + Integer.toString(inputValue) + "\n");
+						textArea.setText(sb.toString());
+					} else {
+						sort.delete(inputValue);
+						sort.DrawPanel(sort.Arr, 50, 100, true);
+						sb.append("DELETE INDEX\t" + Integer.toString(inputValue) + "\n");
+						textArea.setText(sb.toString());
+					}
 					if (sort.list.size() == 0) {
 						btnDelete.setEnabled(false);
 						btnSortingStart.setEnabled(false);
 					}
 				} catch (Exception eee) {
-					JOptionPane.showMessageDialog(new JPanel(), "INPUT ERROR", "Error", JOptionPane.ERROR_MESSAGE);
-					sb.append("ERROR "+eee.getMessage()+"\n");
+					sb.append("ERROR " + eee.getMessage() + "\n");
 					textArea.setText(sb.toString());
 					return;
 				} finally {
 					textField.setText("");
 				}
-				
+
 			}
 		});
 		btnDelete.setEnabled(false);
@@ -224,16 +234,17 @@ public class SortingGui extends JFrame {
 		JLabel lblNewLabel_2 = new JLabel("\uC2E4\uD589 \uC774\uB825");
 		lblNewLabel_2.setBounds(848, 16, 57, 15);
 		contentPane.add(lblNewLabel_2);
-		
+
 		textArea = new JTextArea();
-		textArea.setBounds(848, 34, 264, 406);	
+		textArea.setBounds(848, 34, 264, 406);
+		textArea.setEditable(false);
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.setBounds(848, 34, 264, 406);
 		scrollPane.setViewportView(textArea);
 		contentPane.add(scrollPane);
-		
+
 		CreateSort(sortingWhat);
 	}
 

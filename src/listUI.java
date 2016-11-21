@@ -25,7 +25,7 @@ import javax.swing.ScrollPaneConstants;
 import java.awt.Font;
 import javax.swing.border.BevelBorder;
 
-public class listUI extends SelectUI {
+public class listUI extends JFrame {
 
 	private JPanel contentPane;
 	private drawList box = new drawList();

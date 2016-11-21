@@ -20,22 +20,22 @@ public class InsertSort extends Sort {
 						swapCheck = 0;
 						for (int j = i; j > 0 && Arr[j] < Arr[j - 1]; j--) {
 							swapCheck = j;
-							DrawPanel(Arr, 50, 100, j - 1, "j-1", j, "j", false);
+							DrawPanel(Arr, 50, 100, j - 1, "j-1", j, "j", false,1);
 							this.sleep((long) threadSleepTime);
 							DrawPanel(Arr, 50, 100, false);
 							this.sleep((long) threadSleepTime);
-							DrawPanel(Arr, 50, 100, j - 1, "j-1", j, "j", true);
+							DrawPanel(Arr, 50, 100, j - 1, "j-1", j, "j", true,1);
 							this.sleep((long) threadSleepTime);
 							exch(Arr, j, j - 1);
-							DrawPanel(Arr, 50, 100, j - 1, "j-1", j, "j", false);
+							DrawPanel(Arr, 50, 100, j - 1, "j-1", j, "j", false,1);
 							this.sleep((long) threadSleepTime);
 						}
 						if (!(swapCheck - 2 < 0)) {
-							DrawPanel(Arr, 50, 100, swapCheck - 2, "j-2       <", swapCheck - 1, "j-1", false);
+							DrawPanel(Arr, 50, 100, swapCheck - 2, "j-2       <", swapCheck - 1, "j-1", false,1);
 							this.sleep((long) threadSleepTime);
 						}
 						this.sleep((long) threadSleepTime);
-						DrawPanel(Arr, 50, 100, i - 1, "i - 1       <", i, "i", false);
+						DrawPanel(Arr, 50, 100, i - 1, "i - 1       <", i, "i", false,1);
 						this.sleep((long) threadSleepTime * 2);
 
 					}
