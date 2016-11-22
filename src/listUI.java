@@ -25,13 +25,14 @@ import javax.swing.ScrollPaneConstants;
 import java.awt.Font;
 import javax.swing.border.BevelBorder;
 
-public class listUI extends JFrame {
+public class listUI extends SelectUI {
 
 	private JPanel contentPane;
-	private drawList box = new drawList();
-	private String[] str = new String[20];
-	private LinkedList ll = new LinkedList();
 	private int level = 0;
+	private int count = 0;
+	private int max = 12;
+	private drawList box = new drawList(max);
+	private LinkedList ll = new LinkedList();
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
@@ -119,52 +120,17 @@ public class listUI extends JFrame {
 		lblNewLabel_1.setFont(new Font("굴림", Font.BOLD | Font.ITALIC, 20));
 		lblNewLabel_1.setBounds(658, 427, 89, 25);
 		contentPane.add(lblNewLabel_1);
-		
+
 		JButton btnNewButton_1 = new JButton("\uC2A4\uD06C\uB9B0\uC0F7");
 		btnNewButton_1.setFont(new Font("굴림", Font.BOLD, 20));
 		btnNewButton_1.setBounds(998, 427, 227, 49);
 		contentPane.add(btnNewButton_1);
-		
+
 		JButton button = new JButton("\uB3C4\uC6C0\uB9D0");
 		button.setFont(new Font("굴림", Font.BOLD, 20));
 		button.setBounds(998, 488, 227, 49);
 		contentPane.add(button);
 
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				String insert_1 = textField_1.getText();
-				if (rdbtnNewRadioButton.isSelected()) {
-					String insert_2 = textField.getText();
-					if (Integer.parseInt(insert_2) > level) {
-						JOptionPane.showMessageDialog(panel, "초과되는 인덱스 입니다..", "Error", JOptionPane.ERROR_MESSAGE);
-						return;
-					} else {
-						ll.insert(insert_1, Integer.parseInt(insert_2));
-					}
-				} else {
-					ll.insert(insert_1);
-				}
-				level++;
-				ll.display();
-				box.setBox(level, ll.str);
-				repaint();
-			}
-		});
-		btnDelete.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				String delete_1 = textField_2.getText();
-				if (ll.delete(delete_1).equals("0")) {
-					JOptionPane.showMessageDialog(panel, "인덱스 검색결과 값이 존재하지 않습니다.", "Error", JOptionPane.ERROR_MESSAGE);
-					return;
-				}else{
-					level--;
-					ll.display();
-					box.setBox(level, ll.str);
-					repaint();
-				}
-				
-			}
-		});
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -173,12 +139,61 @@ public class listUI extends JFrame {
 
 		JTextArea textArea = new JTextArea(150, 150);
 		scrollPane.setViewportView(textArea);
-		
+
 		JLabel lblNewLabel_2 = new JLabel("  \uC2E4\uD589\uC774\uB825");
 		lblNewLabel_2.setBorder(null);
 		lblNewLabel_2.setFont(new Font("굴림", Font.BOLD, 20));
 		lblNewLabel_2.setBounds(1240, 32, 110, 41);
 		contentPane.add(lblNewLabel_2);
+
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String insert_1 = textField_1.getText();
+				if (level > max - 1) {
+					JOptionPane.showMessageDialog(panel, "길이 초과...", "Error", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				if (rdbtnNewRadioButton.isSelected()) {
+					String insert_2 = textField.getText();
+					count++;
+					if (Integer.parseInt(insert_2) > level) {
+						JOptionPane.showMessageDialog(panel, "초과되는 인덱스 입니다..", "Error", JOptionPane.ERROR_MESSAGE);
+						return;
+					} else {
+						ll.insert(insert_1, Integer.parseInt(insert_2));
+						textArea.append("COUNT : " + count + "   |   INSERT" + "   |   " + insert_1 + "   |   INDEX : "
+								+ insert_2 + "\n");
+					}
+				} else {
+					ll.insert(insert_1);
+					textArea.append("COUNT : " + count + "   |   INSERT" + "   |   " + insert_1 + "\n");
+				}
+				level++;
+				ll.display();
+				box.setBox(level, ll.str);
+				repaint();
+				if (rdbtnNewRadioButton.isSelected()) {
+					rdbtnNewRadioButton.doClick(10);
+				}
+			}
+		});
+		btnDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String delete_1 = textField_2.getText();
+				if (ll.delete(delete_1).equals("0")) {
+					JOptionPane.showMessageDialog(panel, "인덱스 검색결과 값이 존재하지 않습니다.", "Error", JOptionPane.ERROR_MESSAGE);
+					return;
+				} else {
+					level--;
+					count++;
+					ll.display();
+					box.setBox(level, ll.str);
+					textArea.append("COUNT : " + count + "   |   DELETE" + "   |   " + delete_1 + "\n");
+					repaint();
+				}
+
+			}
+		});
 
 	}
 }

@@ -44,7 +44,7 @@ public class LinkedList extends NodeStructure {
 		/*
 		 * 몇 번째에 넣을지는 gui를 통해 조작할수있도록 하자. k값을 현재 노드갯수보다 큰수로 넣으면 예외처리뜸.
 		 */
-		int c = 1;
+		int c = 0;
 		Node before_pointer = null;
 		Node pointer = head;
 		Node tmp = new Node(d);

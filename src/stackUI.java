@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
@@ -21,19 +22,20 @@ import javax.swing.JScrollBar;
 import javax.swing.JTextArea;
 import javax.swing.UIManager;
 
-public class stackUI extends JFrame {
+public class stackUI extends SelectUI {
 
 	private JPanel contentPane;
 	private JTextField textField;
 	private drawStack box = new drawStack();
 	private int level = 0;
 	private int count = 0;
+	private int max=12;
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JButton btnNewButton_1;
 	private JButton btnNewButton_2;
 	private JTextField textField_4;
-	private stack st = new stack();
+	private stack st = new stack(max);
 
 	public stackUI() {
 		setTitle("STACK");
@@ -84,21 +86,6 @@ public class stackUI extends JFrame {
 		JTextArea textArea = new JTextArea(150, 150);
 		scrollPane.setViewportView(textArea);
 
-		btnNewButton_1 = new JButton("PUSH");
-		btnNewButton_1.setBounds(586, 47, 105, 41);
-		contentPane.add(btnNewButton_1);
-		btnNewButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				String temp = textField.getText();
-				st.push(temp, level);
-				level++;
-				count++;
-				box.setBox(level, st.node);
-				textArea.append("COUNT : " + count + "   |   PUSH" + "   |   " + temp + "\n");
-				re();
-			}
-		});
-
 		btnNewButton_2 = new JButton("POP");
 		btnNewButton_2.setBounds(586, 113, 105, 41);
 		contentPane.add(btnNewButton_2);
@@ -133,16 +120,37 @@ public class stackUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
+		btnNewButton_1 = new JButton("PUSH");
+		btnNewButton_1.setBounds(586, 47, 105, 41);
+		contentPane.add(btnNewButton_1);
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (level > max-1) {
+					JOptionPane.showMessageDialog(panel, "stack 높이 초과", "Error", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				String temp = textField.getText();
+				st.push(temp, level);
+				level++;
+				count++;
+				box.setBox(level, st.node);
+				textArea.append("COUNT : " + count + "   |   PUSH" + "   |   " + temp + "\n");
+				re();
+			}
+		});
 		button.setBounds(474, 592, 218, 57);
 		contentPane.add(button);
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				if (level == 0) {
+					JOptionPane.showMessageDialog(panel, "stact이 비어 삭제가 불가능", "Error", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
 				level--;
 				count++;
 				textArea.append("COUNT : " + count + "   |   POP   " + "   |   " + st.node[level] + "\n");
 				st.pop(level);
 				box.setBox(level, st.node);
-
 				re();
 			}
 		});

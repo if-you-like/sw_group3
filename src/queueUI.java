@@ -1,4 +1,6 @@
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -14,13 +16,12 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JTextArea;
 
-public class queueUI extends JFrame {
+public class queueUI extends SelectUI {
 
 	private JPanel contentPane;
 	private drawQueue box = new drawQueue();
 	private JTextField textField;
 	private queue qu= new queue();
-	private int level=0;
 	private int count=0;
 	private JLabel lblNewLabel_1;
 	
@@ -72,10 +73,9 @@ public class queueUI extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String temp = textField.getText();
-				qu.insert(temp);
-				level++;
 				count++;
-				box.setBox(level, qu.data, true);
+				qu.insert(temp);				
+				box.setBox(qu.data, true, temp, qu.head, qu.tail);
 				textArea.append("COUNT : " + count + "   |   PUSH" + "   |   " + temp + "\n");
 				repaint();
 			}
@@ -85,7 +85,12 @@ public class queueUI extends JFrame {
 		
 		JButton btnPop = new JButton("POP");
 		btnPop.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) {				
+				String temp=qu.delete();			
+				count++;
+				box.setBox(qu.data, false, temp, qu.head, qu.tail);
+				textArea.append("COUNT : " + count + "   |   POP" + "   |   " + temp + "\n");
+				repaint();			
 			}
 		});
 		btnPop.setBounds(14, 90, 242, 72);
@@ -111,9 +116,7 @@ public class queueUI extends JFrame {
 			}
 		});
 		button_3.setBounds(14, 96, 242, 72);
-		panel_2.add(button_3);
-		
-		
+		panel_2.add(button_3);		
 		
 		lblNewLabel_1 = new JLabel("\uC2E4\uD589\uC774\uB825");
 		lblNewLabel_1.setFont(new Font("±¼¸²", Font.BOLD, 20));

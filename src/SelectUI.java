@@ -85,7 +85,8 @@ public class SelectUI extends JFrame {
 		panel.add(btnNewButton_1);
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				tui = new treeUI();
+				int a=0;
+				tui = new treeUI(a);
 				tui.setVisible(true);
 			}
 		});
@@ -93,6 +94,13 @@ public class SelectUI extends JFrame {
 		JButton btnAvl = new JButton("A.V.L");
 		btnAvl.setBounds(140, 107, 100, 27);
 		panel.add(btnAvl);
+		btnAvl.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int a=1;
+				tui = new treeUI(a);
+				tui.setVisible(true);
+			}
+		});
 
 		lblNewLabel = new JLabel("  DataStruckture");
 		lblNewLabel.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -100,10 +108,7 @@ public class SelectUI extends JFrame {
 		lblNewLabel.setFont(new Font("±¼¸²", Font.PLAIN, 19));
 		lblNewLabel.setBounds(0, 0, 147, 27);
 		panel.add(lblNewLabel);
-		btnAvl.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+	
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new LineBorder(new Color(0, 0, 0)));

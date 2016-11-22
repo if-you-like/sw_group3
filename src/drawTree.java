@@ -31,8 +31,8 @@ class drawTree extends JPanel {
 		 holic[14] = 14;
 	}
 
-	void setbox(String[] date, int level) {
-		this.level = level;
+	void setbox(String[] date) {
+		this.level = date.length;
 		this.TreeDate = date;
 	}
 

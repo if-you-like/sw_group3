@@ -2,6 +2,7 @@
 public class queue extends ArrayStructure {
 	static int head;
 	static int tail;
+	static int Max = 11;// gui로 11개가 한개래서 11개로 설정 원래 15개
 
 	queue() {
 		head = 0;
