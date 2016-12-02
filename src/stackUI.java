@@ -1,29 +1,25 @@
-import java.awt.BorderLayout;
-import java.awt.Canvas;
-import java.awt.EventQueue;
-import java.awt.Graphics;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
 import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.JScrollBar;
 import javax.swing.JTextArea;
 import javax.swing.UIManager;
+import javax.swing.border.EmptyBorder;
 
 public class stackUI extends SelectUI {
-
+	FileUI Fui;
+	Capture capture;
 	private JPanel contentPane;
 	private JTextField textField;
 	private drawStack box = new drawStack();
@@ -38,6 +34,8 @@ public class stackUI extends SelectUI {
 	private stack st = new stack(max);
 
 	public stackUI() {
+		Fui = new FileUI();
+		capture = new Capture();
 		setTitle("STACK");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(300, 0, 736, 718);
@@ -107,13 +105,14 @@ public class stackUI extends SelectUI {
 		contentPane.add(textField_4);
 		textField_4.setColumns(10);
 
-		JButton btnScreenShot = new JButton("\uC2A4\uD06C\uB9B0\uC0F7");
-		btnScreenShot.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		JButton CaptureButton = new JButton("\uC2A4\uD06C\uB9B0\uC0F7");
+		CaptureButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				sui.mouseClicked();
 			}
 		});
-		btnScreenShot.setBounds(474, 523, 218, 57);
-		contentPane.add(btnScreenShot);
+		CaptureButton.setBounds(474, 523, 218, 57);
+		contentPane.add(CaptureButton);
 
 		JButton button = new JButton("\uB3C4\uC6C0\uB9D0");
 		button.addActionListener(new ActionListener() {
@@ -161,5 +160,14 @@ public class stackUI extends SelectUI {
 		repaint();
 		String t = String.valueOf(level - 1);
 		textField_1.setText(t);
+	}
+	
+	public void mouseClicked() {
+		sui.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				Fui.FileOpen();
+				capture.captureScreenPart(Fui.getFilePath(), sui.getX(), sui.getY(), e.getX(), e.getY());
+			}
+		});
 	}
 }

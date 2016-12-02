@@ -1,4 +1,6 @@
 
+
+
 public class stack extends ArrayStructure {
 	String node[];
 	int level;

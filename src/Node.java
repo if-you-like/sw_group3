@@ -1,3 +1,4 @@
+
 class Node {
 	String data = "";
 	int N;

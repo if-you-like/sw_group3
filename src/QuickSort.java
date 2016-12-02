@@ -1,3 +1,4 @@
+
 import java.awt.Color;
 
 import javax.swing.JButton;
@@ -17,7 +18,7 @@ public class QuickSort extends Sort {
 				try {
 					DrawPanel(Arr, 50, 100, true);
 					this.sleep((long) threadSleepTime);
-					sort(Arr, 0, Arr.length - 1, threadSleepTime);
+					sort(Arr, 0, Arr.length -1 , threadSleepTime);
 					this.sleep(100);
 					DrawPanel(Arr, 50, 100, false);
 				} catch (Exception e) {
@@ -62,7 +63,7 @@ public class QuickSort extends Sort {
 				}
 				// swap arr[i] and arr[j]
 				exch(arr, i, j);
-				qDrawPanel(arr, 50, 100, i, high, j, false);
+				qDrawPanel(arr, 50, 100, i, high, j, true);
 				try {
 					thread.sleep((long) threadSleepTime);
 				} catch (InterruptedException e) {
@@ -81,7 +82,7 @@ public class QuickSort extends Sort {
 			e.printStackTrace();
 		}
 		exch(arr, i + 1, high);
-		DrawPanel(arr, 50, 100, i + 1, "i+1", high, "pivot", false, 2);
+		DrawPanel(arr, 50, 100, i + 1, "i+1", high, "pivot", true, 2);
 		try {
 			thread.sleep((long) threadSleepTime);
 		} catch (InterruptedException e) {

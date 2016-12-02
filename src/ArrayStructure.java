@@ -1,4 +1,5 @@
 
+
 class ArrayStructure extends DataStructure {
 	static final int Max = 15;
 	String data[] = new String[Max];

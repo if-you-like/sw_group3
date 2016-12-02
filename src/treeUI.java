@@ -1,9 +1,12 @@
+
 import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -28,11 +31,12 @@ import java.awt.Font;
 import javax.swing.JTextArea;
 
 public class treeUI extends SelectUI {
-
+	FileUI Fui;
+	Capture capture;
 	private JPanel contentPane;
 	private JTextField textField;
-	private Binary_Search_Tree bst = new Binary_Search_Tree();
-	private AVLTree avl = new AVLTree();
+	private Binary_Search_Tree bst;
+	private AVLTree avl;
 	private drawTree box = new drawTree();
 	private JTextField textField_2;
 	private int count = 0;
@@ -41,10 +45,14 @@ public class treeUI extends SelectUI {
 	private final ButtonGroup buttonGroup_1 = new ButtonGroup();
 
 	public treeUI(int select) {
+		Fui = new FileUI();
+		capture = new Capture();
 		this.select = select;
 		if (select == 1) {
 			setTitle("Balanced Binary Search Tree");
+			avl = new AVLTree();
 		} else {
+			bst = new Binary_Search_Tree();
 			setTitle("Binary Search Tree");
 		}
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -100,8 +108,8 @@ public class treeUI extends SelectUI {
 		tglbtnBefore.setBorder(null);
 		tglbtnBefore.setBackground(UIManager.getColor("Button.background"));
 		tglbtnBefore.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				box.setbox(treedata);
+			public void actionPerformed(ActionEvent e) {				
+				box.setbox(treedata);				
 				repaint();
 			}
 		});
@@ -127,9 +135,14 @@ public class treeUI extends SelectUI {
 		tglbtnAfter.setBounds(150, 798, 151, 43);
 		contentPane.add(tglbtnAfter);
 
-		JButton btnNewButton_1 = new JButton("\uC2A4\uD06C\uB9B0\uC0F7");
-		btnNewButton_1.setBounds(380, 844, 238, 65);
-		contentPane.add(btnNewButton_1);
+		JButton CaptureButton = new JButton("\uC2A4\uD06C\uB9B0\uC0F7");
+		CaptureButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				tui.mouseClicked();
+			}
+		});
+		CaptureButton.setBounds(380, 844, 238, 65);
+		contentPane.add(CaptureButton);
 
 		JButton button = new JButton("\uB3C4\uC6C0\uB9D0");
 		button.setBounds(707, 844, 238, 65);
@@ -153,9 +166,9 @@ public class treeUI extends SelectUI {
 			public void actionPerformed(ActionEvent e) {
 				String temp = textField.getText();
 				if (select == 1) {// avl
-					avlReact();
 					if (rdbtnNewRadioButton_1.isSelected()) {
 						if (avl.treeSearch(temp) == null) {
+							avlReact();
 							avl.insert(temp);
 							avl.TreeInput();
 							count++;
@@ -166,6 +179,7 @@ public class treeUI extends SelectUI {
 						}
 					} else {
 						if (avl.treeSearch(temp) != null) {
+							avlReact();
 							avl.delete(temp);
 							avl.TreeInput();
 							count++;
@@ -181,14 +195,14 @@ public class treeUI extends SelectUI {
 								JOptionPane.ERROR_MESSAGE);
 						avl.delete(temp);
 						avl.TreeInput();
-						box.setbox(avl.TreeData);
+						box.setbox(avl.TreeData);						
 					}
 					repaint();
 
 				} else {// bst
-					bstReact();
 					if (rdbtnNewRadioButton_1.isSelected()) {
 						if (bst.treeSearch(temp) == null) {
+							bstReact();
 							bst.insert(temp);
 							bst.TreeInput();
 							count++;
@@ -199,9 +213,10 @@ public class treeUI extends SelectUI {
 						}
 					} else {
 						if (bst.treeSearch(temp) != null) {
+							bstReact();
 							bst.delete(temp);
 							bst.TreeInput();
-							count++;
+							count++;							
 							box.setbox(bst.TreeData);
 							textArea.append("COUNT : " + count + "   |   DELTE" + "   |   " + temp + "\n");
 						} else {
@@ -227,6 +242,7 @@ public class treeUI extends SelectUI {
 		treedata = new String[bst.TreeData.length];
 		for (int i = 0; i < 15; i++) {
 			treedata[i] = bst.TreeData[i];
+			System.out.println(i + ": " + treedata[i]);
 		}
 	}
 
@@ -236,5 +252,14 @@ public class treeUI extends SelectUI {
 		for (int i = 0; i < 15; i++) {
 			treedata[i] = avl.TreeData[i];
 		}
+	}
+
+	public void mouseClicked() {
+		tui.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				Fui.FileOpen();
+				capture.captureScreenPart(Fui.getFilePath(), tui.getX(), tui.getY(), e.getX(), e.getY());
+			}
+		});
 	}
 }

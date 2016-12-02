@@ -1,12 +1,15 @@
 
+
 public class LinkedList extends NodeStructure {
 
-	static int Cnt = 0;
-	static String[] str = new String[20];
+	static int Cnt;
+	static String[] str;
 
 	public LinkedList() {
 		head = new Node();
 		tail = head;
+		str= new String[20];
+		 Cnt = 0;
 	}
 
 	void display() {

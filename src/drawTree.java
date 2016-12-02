@@ -1,3 +1,4 @@
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.LinkedHashMap;
@@ -34,7 +35,7 @@ class drawTree extends JPanel {
 	void setbox(String[] date) {
 		this.level = date.length;
 		this.TreeDate = date;
-	}
+	}	
 
 	public void paint(Graphics g) {
 		super.paintComponent(g);
@@ -62,7 +63,8 @@ class drawTree extends JPanel {
 		int[][] yarr = { {}, { 150, 250 }, { 150, 250 }, { 350, 450 }, { 350, 450 }, { 350, 450 }, { 350, 450 },
 				{ 550, 650 }, { 550, 650 }, { 550, 650 }, { 550, 650 }, { 550, 650 }, { 550, 650 }, { 550, 650 },
 				{ 550, 650 } };
-
+		g.drawString("ROOT", 735, 40 );
+		g.drawOval(700, 50, w, h);
 		for (int i = 0; i < level; i++) {
 			for (int j = 0; j < TreeDate.length; j++) {
 				if (TreeDate[j] != null) {

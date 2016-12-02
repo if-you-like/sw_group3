@@ -1,3 +1,4 @@
+
 public class AVLTree extends Binary_Search_Tree {
 	AVLTree() {
 		super();
@@ -33,7 +34,7 @@ public class AVLTree extends Binary_Search_Tree {
 				temp = bp.left;
 				bp.left.parent = bp;
 			}
-			// AVLì¶”ê°€
+			// AVLì¶”ê?
 			for (Node x = temp; x != null; x = x.parent) {
 				x.aux = 1 + Math.max(height(x.left), height(x.right));
 			}
@@ -42,14 +43,14 @@ public class AVLTree extends Binary_Search_Tree {
 
 	}
 
-	protected void rotate(Node x) { // LLê³¼ RRì„ í•˜ë‚˜ì˜ í•¨ìˆ˜ë¡œ. c ïƒ  x ïƒ  yê°€ ë¬¸ì œ!
+	protected void rotate(Node x) { // LLê³? RR?„ ?•˜?‚˜?˜ ?•¨?ˆ˜ë¡?. c ?ƒ  x ?ƒ  yê°? ë¬¸ì œ!
 		Node y = x.parent;
 		Node z = y.parent;
 		if (z == null) {
 			root = x;
 			x.parent = null;
 		} else
-			relink(z, x, y == z.left); // xë¥¼ zì˜ ìì‹ìœ¼ë¡œ. ì¦‰, xê°€ cì™€ yì˜ ë¶€ëª¨
+			relink(z, x, y == z.left); // xë¥? z?˜ ??‹?œ¼ë¡?. ì¦?, xê°? c?? y?˜ ë¶?ëª?
 		if (x == y.left) {
 			relink(y, x.right, true);
 			relink(x, y, false);
@@ -60,18 +61,18 @@ public class AVLTree extends Binary_Search_Tree {
 		} // RR
 	}
 
-	protected Node restructure(Node x) { // x ïƒ  y ïƒ  zê°€ ë¬¸ì œ
+	protected Node restructure(Node x) { // x ?ƒ  y ?ƒ  zê°? ë¬¸ì œ
 		Node y = x.parent;
 		Node z = y.parent;
 		if ((x == y.left) == (y == z.left)) {
 			rotate(y);
 			return y;
-		} // LL or RR : yê°€ ì¤‘ê°„ê°’
+		} // LL or RR : yê°? ì¤‘ê°„ê°?
 		else {
 			rotate(x);
 			rotate(x);
 			return x;
-		} // ì¤‘ê°„ê°’ì´ x: LR/RL ïƒ  LL/RRë¡œ ì¼ë‹¨ ë³€ê²½
+		} // ì¤‘ê°„ê°’ì´ x: LR/RL ?ƒ  LL/RRë¡? ?¼?‹¨ ë³?ê²?
 	}
 
 	private int height(Node x) {
@@ -82,40 +83,40 @@ public class AVLTree extends Binary_Search_Tree {
 		x.setAux(height);
 	}
 
-	private void recomputeHeight(Node x) // ë…¸ë“œì˜ ë†’ì´ ì¬ê³„ì‚°
+	private void recomputeHeight(Node x) // ?…¸?“œ?˜ ?†’?´ ?¬ê³„ì‚°
 	{
 		setHeight(x, (1 + Math.max(height(x.left), height(x.right))));
 	}
 
-	private boolean isBalanced(Node x) // ë…¸ë“œì˜ balanced ì—¬ë¶€ ê²€ì‚¬
+	private boolean isBalanced(Node x) // ?…¸?“œ?˜ balanced ?—¬ë¶? ê²??‚¬
 	{
 		return (Math.abs(height(x.left) - height(x.right)) <= 1);
 	}
 
-	private Node tallerChild(Node x) { // ê¹Šì´ê°€ ê¹Šì€ ìì‹ ë…¸ë“œ ì¡°ì‚¬
+	private Node tallerChild(Node x) { // ê¹Šì´ê°? ê¹Šì? ??‹ ?…¸?“œ ì¡°ì‚¬
 		if (height(x.left) > height(x.right))
 			return x.left;
 		if (height(x.left) < height(x.right))
 			return x.right;
 		if (x == root)
-			return x.left; // ê°™ì€ ê²½ìš°ì—ëŠ” ì™¼ìª½ ìì‹
+			return x.left; // ê°™ì? ê²½ìš°?—?Š” ?™¼ìª? ??‹
 		if (x == x.parent.left)
-			return x.left; // LLì´ë‚˜
+			return x.left; // LL?´?‚˜
 		else
-			return x.right; // RRì„ ì„ í˜¸
+			return x.right; // RR?„ ?„ ?˜¸
 	}
 
 	private void rebalance(Node x) {
 		do {
-			if (!isBalanced(x)) { // xê°€ balanced nodeê°€ ì•„ë‹ ê²½ìš°, ì¬êµ¬ì„±
+			if (!isBalanced(x)) { // xê°? balanced nodeê°? ?•„?‹ ê²½ìš°, ?¬êµ¬ì„±
 				x = restructure(tallerChild(tallerChild(x)));
-				recomputeHeight(x.left); // ì¬êµ¬ì„± í›„, ë†’ì´ë¥¼ ë‹¤ì‹œ ì¡°ì •
+				recomputeHeight(x.left); // ?¬êµ¬ì„± ?›„, ?†’?´ë¥? ?‹¤?‹œ ì¡°ì •
 				recomputeHeight(x.right);
 				for (Node p = x; p != null; p = p.parent)
 					recomputeHeight(p);
 			}
-			// put()ì˜ ê²½ìš°ì—ëŠ” ì¬êµ¬ì„± í›„, ë¶€ëª¨ ë…¸ë“œë¥¼ ì¡°ì‚¬í•  í•„ìš”ê°€ ì—†ìœ¼ë‚˜,
-			// deleteì˜ ê²½ìš°ì—ëŠ” ë¶€ëª¨ ë…¸ë“œë“¤ì˜ balanced ì—¬ë¶€ë¥¼ ì¡°ì‚¬í•˜ì—¬ì•¼ í•¨.
+			// put()?˜ ê²½ìš°?—?Š” ?¬êµ¬ì„± ?›„, ë¶?ëª? ?…¸?“œë¥? ì¡°ì‚¬?•  ?•„?š”ê°? ?—†?œ¼?‚˜,
+			// delete?˜ ê²½ìš°?—?Š” ë¶?ëª? ?…¸?“œ?“¤?˜ balanced ?—¬ë¶?ë¥? ì¡°ì‚¬?•˜?—¬?•¼ ?•¨.
 			x = x.parent;
 		} while (x != null);
 	}
@@ -125,41 +126,41 @@ public class AVLTree extends Binary_Search_Tree {
 			return "Tree is Empty";
 		Node x, y, p;
 		x = treeSearch(key);
-		// keyê°€ ì—†ëŠ” ê²½ìš°.
+		// keyê°? ?—†?Š” ê²½ìš°.
 		if (x==null || !key.equals(x.data))
 			return "Search Error";
-		// ë£¨íŠ¸ì´ê±°ë‚˜ ìì‹ì´ ë‘ ê°œì¸ ë…¸ë“œ
+		// ë£¨íŠ¸?´ê±°ë‚˜ ??‹?´ ?‘ ê°œì¸ ?…¸?“œ
 		if (x == root || isTwoNode(x)) {
-			if (isLeaf(x)) // ë£¨íŠ¸ê°€ ë¦¬í”„
+			if (isLeaf(x)) // ë£¨íŠ¸ê°? ë¦¬í”„
 			{
 				root.data = "";
 				return "Tree set Empty";
 			} else if (!isTwoNode(x)) { // ë£¨íŠ¸
-				root = (x.right == null) ? x.left : x.right; // ìì‹ì„ ë£¨íŠ¸ë¡œ
+				root = (x.right == null) ? x.left : x.right; // ??‹?„ ë£¨íŠ¸ë¡?
 				root.parent = null;
-				// AVLì¶”ê°€
+				// AVLì¶”ê?
 				root.setAux(1);
-			} else { // ìì‹ì´ ë‘˜ì¸ ë…¸ë“œ(ë£¨íŠ¸ í¬í•¨)
+			} else { // ??‹?´ ?‘˜?¸ ?…¸?“œ(ë£¨íŠ¸ ?¬?•¨)
 				y = min(x.right); // inorder successor
-				x.data = y.data; // yë¥¼ xì— ë³µì‚¬
+				x.data = y.data; // yë¥? x?— ë³µì‚¬
 				p = y.parent;
-				// yì˜ ìì‹ì„ pì˜ ìì‹ìœ¼ë¡œ(y ì‚­ì œ)
+				// y?˜ ??‹?„ p?˜ ??‹?œ¼ë¡?(y ?‚­? œ)
 				relink(p, y.right, y == p.left);
-				// yì˜ ì¡°ìƒ ë…¸ë“œë“¤ì˜ sizeë¥¼ ê°ì†Œ
-				// AVLì¶”ê°€
+				// y?˜ ì¡°ìƒ ?…¸?“œ?“¤?˜ sizeë¥? ê°ì†Œ
+				// AVLì¶”ê?
 				
 				
 				for (Node temp = x; temp != null; temp = temp.parent) {
 					temp.aux = 1 + Math.max(height(temp.left), height(temp.right));
 				}rebalance(x);
 			}
-		} else { // ìì‹ì´ í•˜ë‚˜ì´ë©°, ë£¨íŠ¸ ì•„ë‹˜
+		} else { // ??‹?´ ?•˜?‚˜?´ë©?, ë£¨íŠ¸ ?•„?‹˜
 			p = x.parent;
 			if (x.right == null)
 				relink(p, x.left, x == p.left);
 			else if (x.left == null)
 				relink(p, x.right, x == p.left);
-			// AVLì¶”ê°€
+			// AVLì¶”ê?
 			
 			for (Node temp = p; temp != null; temp = temp.parent) {
 				temp.aux = 1 + Math.max(height(temp.left), height(temp.right));

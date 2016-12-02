@@ -1,7 +1,6 @@
 import java.awt.AWTException;
 import java.awt.Rectangle;
 import java.awt.Robot;
-import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -21,24 +20,6 @@ public class Capture {
 			BufferedImage bufImage = robot.createScreenCapture(area);
 			ImageIO.write(bufImage, cap.getFromat(filename), new File(filename));
 
-		} catch (AWTException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void captureScreenAll(String filename) {
-		Robot robot = null;
-		Capture cap = new Capture();
-		// Toolkit.getDefaultToolkit().getScreenSize() 전체 캡쳐 가능
-		Rectangle area = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
-		try {
-			robot = new Robot();
-			BufferedImage bufImage = robot.createScreenCapture(area);
-			ImageIO.write(bufImage, cap.getFromat(filename), new File(filename));
-			// format은 png gif jpg jpeg bmp정도만 됨
-			// 설정하지않은 포맷이 들어오면 파일 생성 안함.
 		} catch (AWTException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

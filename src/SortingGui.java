@@ -1,5 +1,3 @@
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -12,6 +10,8 @@ import java.awt.Color;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
@@ -19,7 +19,8 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.JScrollPane;
 
 public class SortingGui extends JFrame {
-
+	FileUI Fui;
+	Capture capture;
 	public JPanel contentPane;
 	private JTextField textField;
 	public JPanel beginState;
@@ -37,13 +38,14 @@ public class SortingGui extends JFrame {
 	private JRadioButton rbtn_std;
 	private JRadioButton rbtn_fast;
 	int threadSleepTime = 500;
-	private JButton btnImage;
+	private JButton CaptureButton;
 	private StringBuffer sb = new StringBuffer();
-	private String sumText = "";
+	private boolean mouseListenerIsActive = true;
 	private JTextArea textArea;
 
 	public SortingGui(int sortingWhat) {
-
+		Fui = new FileUI();
+		capture = new Capture();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1140, 488);
 		contentPane = new JPanel();
@@ -77,25 +79,25 @@ public class SortingGui extends JFrame {
 		btnSortingStart = new JButton("\uC815 \uB82C \uC2DC \uC791");
 		btnSortingStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) { // 정렬 시작
-				String speed="";
+				String speed = "";
 				btnSortingStart.setEnabled(false);
 				btnInput.setEnabled(false);
 				btnDelete.setEnabled(false);
 				btnRandom.setEnabled(false);
 				if (rbtn_std.isSelected() == true) {
 					threadSleepTime = 500;
-					speed="Standard";
+					speed = "Standard";
 
 				} else if (rbtn_slow.isSelected() == true) {
 
 					threadSleepTime = 1000;
-					speed="Slow";
+					speed = "Slow";
 
 				} else {
 					threadSleepTime = 0;
-					speed="Fast";
+					speed = "Fast";
 				}
-				sb.append(speed+" Run\n");
+				sb.append(speed + " Run\n");
 				textArea.setText(sb.toString());
 				sort.Run(threadSleepTime);
 				// 예외처리 필요
@@ -117,8 +119,7 @@ public class SortingGui extends JFrame {
 		btnInput = new JButton("\uC785 \uB825");
 		btnInput.addActionListener(new ActionListener() { // 입력
 			public void actionPerformed(ActionEvent arg0) {
-				btnDelete.setEnabled(true);
-				btnSortingStart.setEnabled(true);
+				
 				try { // 입력값의 정상적인 정수변형 여부 파악
 					inputValue = Integer.parseInt(textField.getText());
 
@@ -126,6 +127,8 @@ public class SortingGui extends JFrame {
 					sort.DrawPanel(sort.Arr, 50, 100, true);
 					sb.append("INPUT\t\t" + Integer.toString(inputValue) + "\n");
 					textArea.setText(sb.toString());
+					btnDelete.setEnabled(true);
+					btnSortingStart.setEnabled(true);
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(new JPanel(), "INPUT ERROR", "Error", JOptionPane.ERROR_MESSAGE);
 					sb.append("ERROR " + e.getMessage() + "\n");
@@ -134,7 +137,7 @@ public class SortingGui extends JFrame {
 				} finally {
 					textField.setText("");
 				}
-
+				
 			}
 		});
 		btnInput.setFont(new Font("굴림", Font.BOLD, 15));
@@ -144,8 +147,7 @@ public class SortingGui extends JFrame {
 		btnRandom = new JButton("\uB79C \uB364");
 		btnRandom.addActionListener(new ActionListener() { // 랜덤
 			public void actionPerformed(ActionEvent e) {
-				btnDelete.setEnabled(true);
-				btnSortingStart.setEnabled(true);
+				
 
 				try {
 					inputValue = Integer.parseInt(textField.getText());
@@ -157,7 +159,8 @@ public class SortingGui extends JFrame {
 						sort.DrawPanel(sort.Arr, 50, 100, true);
 						sb.append("Randem Size\t" + Integer.toString(inputValue) + "\n");
 						textArea.setText(sb.toString());
-					}
+					}btnDelete.setEnabled(true);
+					btnSortingStart.setEnabled(true);
 				} catch (Exception ee) {
 					JOptionPane.showMessageDialog(new JPanel(), "INPUT ERROR", "Error", JOptionPane.ERROR_MESSAGE);
 					sb.append("ERROR " + ee.getMessage() + "\n");
@@ -226,10 +229,15 @@ public class SortingGui extends JFrame {
 		group.add(rbtn_std);
 		group.add(rbtn_fast);
 
-		btnImage = new JButton("\uC774 \uBBF8 \uC9C0 \uC800 \uC7A5");
-		btnImage.setFont(new Font("굴림", Font.BOLD, 15));
-		btnImage.setBounds(12, 355, 223, 36);
-		contentPane.add(btnImage);
+		CaptureButton = new JButton("\uC774 \uBBF8 \uC9C0 \uC800 \uC7A5");
+		CaptureButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				mouseClicked();
+			}
+		});
+		CaptureButton.setFont(new Font("굴림", Font.BOLD, 15));
+		CaptureButton.setBounds(12, 355, 223, 36);
+		contentPane.add(CaptureButton);
 
 		JLabel lblNewLabel_2 = new JLabel("\uC2E4\uD589 \uC774\uB825");
 		lblNewLabel_2.setBounds(848, 16, 57, 15);
@@ -263,5 +271,22 @@ public class SortingGui extends JFrame {
 			sort = new QuickSort(contentPane, beginState, panel, btnSortingStart, btnInput, btnDelete, btnRandom);
 			break;
 		}
+	}
+
+	public void mouseClicked() {
+		mouseListenerIsActive = true;
+		addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				if (mouseListenerIsActive) {
+					Fui.FileOpen();
+					capture.captureScreenPart(Fui.getFilePath(), getX(), getY(), e.getX(), e.getY());
+					stopMouseListner();
+				}
+			}
+		});
+	}
+
+	public void stopMouseListner() {
+		mouseListenerIsActive = false;
 	}
 }

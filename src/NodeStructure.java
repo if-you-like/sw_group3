@@ -1,3 +1,5 @@
+
+
 class NodeStructure extends DataStructure {
 	Node head =null;
 	Node tail = null;

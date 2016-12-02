@@ -1,21 +1,13 @@
-import java.awt.BorderLayout;
-import java.awt.Choice;
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.util.ArrayList;
-
-import javax.swing.ButtonGroup;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -23,10 +15,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 import java.awt.Font;
-import javax.swing.border.BevelBorder;
 
 public class listUI extends SelectUI {
-
+	FileUI Fui;
+	Capture capture;
 	private JPanel contentPane;
 	private int level = 0;
 	private int count = 0;
@@ -38,6 +30,8 @@ public class listUI extends SelectUI {
 	private JTextField textField_2;
 
 	public listUI() {
+		Fui = new FileUI();
+		capture = new Capture();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(300, 0, 1600, 596);
 		contentPane = new JPanel();
@@ -121,10 +115,16 @@ public class listUI extends SelectUI {
 		lblNewLabel_1.setBounds(658, 427, 89, 25);
 		contentPane.add(lblNewLabel_1);
 
-		JButton btnNewButton_1 = new JButton("\uC2A4\uD06C\uB9B0\uC0F7");
-		btnNewButton_1.setFont(new Font("±¼¸²", Font.BOLD, 20));
-		btnNewButton_1.setBounds(998, 427, 227, 49);
-		contentPane.add(btnNewButton_1);
+		JButton CaptureButton = new JButton("\uC2A4\uD06C\uB9B0\uC0F7");
+		CaptureButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				lui.mouseClicked();
+			}
+		});
+
+		CaptureButton.setFont(new Font("±¼¸²", Font.BOLD, 20));
+		CaptureButton.setBounds(998, 427, 227, 49);
+		contentPane.add(CaptureButton);
 
 		JButton button = new JButton("\uB3C4\uC6C0\uB9D0");
 		button.setFont(new Font("±¼¸²", Font.BOLD, 20));
@@ -195,5 +195,14 @@ public class listUI extends SelectUI {
 			}
 		});
 
+	}
+
+	public void mouseClicked() {
+		lui.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				Fui.FileOpen();
+				capture.captureScreenPart(Fui.getFilePath(), lui.getX(), lui.getY(), e.getX(), e.getY());
+			}
+		});
 	}
 }

@@ -1,3 +1,4 @@
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -34,7 +35,13 @@ public class ThreeColorSortingPaint extends ArrayPaint {
 				g.fillRect(x + 70 * i, y, 70, 31);
 				g.setColor(Color.BLACK);
 				g.drawString(jstr+" = "+minstr, x + 70 * i + 35, stringhigh);
-			} else if (i == ci) {
+			}
+			else if ((cj == i)&&(ci==i)) {
+				g.setColor(new Color(255,128,64));
+				g.fillRect(x + 70 * i, y, 70, 31);
+				g.setColor(Color.BLACK);
+				g.drawString(istr+" = "+jstr, x + 70 * i + 35, stringhigh);
+			}else if (i == ci) {
 				g.setColor(new Color(255,100,100));
 				g.fillRect(x + 70 * i, y, 70, 31);
 				g.setColor(Color.BLACK);

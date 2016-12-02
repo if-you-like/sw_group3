@@ -1,4 +1,5 @@
 
+
 public class queue extends ArrayStructure {
 	static int head;
 	static int tail;
